@@ -29,15 +29,8 @@ jobs:
     - name: Login to DockerHub
       uses: docker/login-action@v1
       with:
-        username: vergilgao
+        username: 553531284
         password: ${{ secrets.DOCKERHUB_TOKEN }}
-
-    - name: Login to GitHub Container Registry
-      uses: docker/login-action@v1
-      with:
-        registry: ghcr.io
-        username: vergilgao
-        password: ${{ secrets.GHCR_TOKEN }}
 
     - name: Build and push
       id: docker_build
@@ -48,26 +41,14 @@ jobs:
         platforms: linux/amd64
         push: true
         tags: |
-          vergilgao/mdc:${{ env.MAJOR_VERSION }}
-          vergilgao/mdc:${{ env.MINOR_VERSION }}
-          vergilgao/mdc:${{ env.BUILD_VERSION }}
-          vergilgao/mdc:${{ env.TAG_VERSION }}
-          vergilgao/mdc:latest
-          ghcr.io/vergilgao/mdc:${{ env.MAJOR_VERSION }}
-          ghcr.io/vergilgao/mdc:${{ env.MINOR_VERSION }}
-          ghcr.io/vergilgao/mdc:${{ env.BUILD_VERSION }}
-          ghcr.io/vergilgao/mdc:${{ env.TAG_VERSION }}
-          ghcr.io/vergilgao/mdc:latest
-          vergilgao/avdc:${{ env.MAJOR_VERSION }}
-          vergilgao/avdc:${{ env.MINOR_VERSION }}
-          vergilgao/avdc:${{ env.BUILD_VERSION }}
-          vergilgao/avdc:${{ env.TAG_VERSION }}
-          vergilgao/avdc:latest
+          553531284/mdc:${{ env.MAJOR_VERSION }}
+          553531284/mdc:${{ env.MINOR_VERSION }}
+          553531284/mdc:${{ env.BUILD_VERSION }}
+          553531284/mdc:${{ env.TAG_VERSION }}
+          553531284/mdc:latest
         build-args: |
           VERSION=${{ env.BUILD_VERSION }}
           BUILD_DATE=${{ env.BUILD_DATE }}
-        cache-from: type=registry,ref=ghcr.io/vergilgao/mdc:buildcache
-        cache-to: type=registry,ref=ghcr.io/vergilgao/mdc:buildcache,mode=max
-    
+
     - name: Image digest
       run: echo ${{ steps.docker_build.outputs.digest }}    

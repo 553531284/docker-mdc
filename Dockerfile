@@ -1,11 +1,11 @@
 FROM ghcr.io/vergilgao/mdc-buildimage:dev as build-stage
 
 ARG MDC_SOURCE_VERSION
-ENV MDC_SOURCE_VERSION=${MDC_SOURCE_VERSION:-39b88090a0f281abf874f922705a6bfd199a8aad}
+ENV MDC_SOURCE_VERSION=${MDC_SOURCE_VERSION:master}
 
 RUN mkdir -p /tmp/mdc && cd /tmp/mdc && \
     # get mdc source code
-    wget -O- https://github.com/yoshiko2/Movie_Data_Capture/archive/$MDC_SOURCE_VERSION.tar.gz | tar xz -C /tmp/mdc --strip-components 1 && \
+    wget -O- https://github.com/553531284/Movie_Data_Capture/archive/$MDC_SOURCE_VERSION.tar.gz | tar xz -C /tmp/mdc --strip-components 1 && \
     # fix dowload error
     sed -i "s/if configProxy:/if configProxy.enable:/g" core.py && \
     # build mdc

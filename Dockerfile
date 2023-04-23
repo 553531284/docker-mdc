@@ -11,6 +11,7 @@ RUN mkdir -p /tmp/mdc && cd /tmp/mdc && \
     # build mdc
     /pyinstaller/pyinstaller.sh \
         --onefile Movie_Data_Capture.py \
+        --collect-submodules "scrapinglib" \
         --hidden-import "ImageProcessing.cnn" \
         --add-data "Img:Img" \
         --add-data "$(python -c 'import cloudscraper as _; print(_.__path__[0])' | tail -n 1):cloudscraper" \

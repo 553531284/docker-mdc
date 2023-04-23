@@ -10,13 +10,13 @@ RUN mkdir -p /tmp/mdc && cd /tmp/mdc && \
     sed -i "s/if configProxy:/if configProxy.enable:/g" core.py && \
     # build mdc
     /pyinstaller/pyinstaller.sh \
-        --onefile Movie_Data_Capture.py \
         --collect-submodules "scrapinglib" \
-        --hidden-import "ImageProcessing.cnn" \
-        --add-data "Img:Img" \
+        --collect-submodules "ImageProcessing" \
         --add-data "$(python -c 'import cloudscraper as _; print(_.__path__[0])' | tail -n 1):cloudscraper" \
         --add-data "$(python -c 'import opencc as _; print(_.__path__[0])' | tail -n 1):opencc" \
-        --add-data "$(python -c 'import face_recognition_models as _; print(_.__path__[0])' | tail -n 1):face_recognition_models"
+        --add-data "$(python -c 'import face_recognition_models as _; print(_.__path__[0])' | tail -n 1):face_recognition_models" \
+        --add-data "Img:Img" \
+        --onefile Movie_Data_Capture.py
 
 FROM ghcr.io/vergilgao/alpine-baseimage
 

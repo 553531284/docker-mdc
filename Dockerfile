@@ -3,6 +3,7 @@ FROM ghcr.io/vergilgao/mdc-buildimage:dev as build-stage
 ARG MDC_SOURCE_VERSION
 ENV MDC_SOURCE_VERSION=${MDC_SOURCE_VERSION:-master}
 
+ENV PYTHONPATH=/tmp/mdc
 RUN mkdir -p /tmp/mdc && cd /tmp/mdc && \
     # get mdc source code
     wget -O- https://github.com/553531284/Movie_Data_Capture/archive/$MDC_SOURCE_VERSION.tar.gz | tar xz -C /tmp/mdc --strip-components 1 && \

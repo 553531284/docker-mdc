@@ -3,7 +3,6 @@ FROM ghcr.io/vergilgao/mdc-buildimage:dev as build-stage
 ARG MDC_SOURCE_VERSION
 ENV MDC_SOURCE_VERSION=${MDC_SOURCE_VERSION:-master}
 
-ENV PYTHONPATH=/tmp/mdc
 RUN mkdir -p /tmp/mdc && cd /tmp/mdc && \
     # get mdc source code
     wget -O- https://github.com/553531284/Movie_Data_Capture/archive/$MDC_SOURCE_VERSION.tar.gz | tar xz -C /tmp/mdc --strip-components 1 && \
@@ -11,13 +10,13 @@ RUN mkdir -p /tmp/mdc && cd /tmp/mdc && \
     sed -i "s/if configProxy:/if configProxy.enable:/g" core.py && \
     # build mdc
     /pyinstaller/pyinstaller.sh \
-        --collect-submodules "scrapinglib" \
-        --collect-submodules "ImageProcessing" \
+        --onefile Movie_Data_Capture.py \
+        --hidden-import "ImageProcessing.cnn" \
+        --add-data "Img:Img" \
+        --add-data "scrapinglib:scrapinglib" \
         --add-data "$(python -c 'import cloudscraper as _; print(_.__path__[0])' | tail -n 1):cloudscraper" \
         --add-data "$(python -c 'import opencc as _; print(_.__path__[0])' | tail -n 1):opencc" \
-        --add-data "$(python -c 'import face_recognition_models as _; print(_.__path__[0])' | tail -n 1):face_recognition_models" \
-        --add-data "Img:Img" \
-        --onefile Movie_Data_Capture.py
+        --add-data "$(python -c 'import face_recognition_models as _; print(_.__path__[0])' | tail -n 1):face_recognition_models"
 
 FROM ghcr.io/vergilgao/alpine-baseimage
 

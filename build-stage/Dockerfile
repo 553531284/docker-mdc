@@ -43,7 +43,7 @@ RUN chmod a+x /pyinstaller/*
 ARG MDC_REQUIREMENTS_SOURCE_VERSION
 ENV MDC_REQUIREMENTS_SOURCE_VERSION=${MDC_REQUIREMENTS_SOURCE_VERSION:-master}
 
-RUN pip install dlib-bin -i https://pypi.douban.com/simple/
+RUN pip install dlib-bin==19.24.2
 # install requirements
 RUN cd /tmp && \
     wget -O mdc_requirements.txt https://raw.githubusercontent.com/553531284/Movie_Data_Capture/$MDC_REQUIREMENTS_SOURCE_VERSION/requirements.txt && \

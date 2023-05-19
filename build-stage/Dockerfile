@@ -41,9 +41,9 @@ ADD /root/ /pyinstaller/
 RUN chmod a+x /pyinstaller/*
 
 ARG MDC_REQUIREMENTS_SOURCE_VERSION
-ENV MDC_REQUIREMENTS_SOURCE_VERSION=${MDC_REQUIREMENTS_SOURCE_VERSION:-e84d75a50af96ba4d60b69a054335c49d65386b1}
+ENV MDC_REQUIREMENTS_SOURCE_VERSION=${MDC_REQUIREMENTS_SOURCE_VERSION:-master}
 
 # install requirements
 RUN cd /tmp && \
-    wget -O mdc_requirements.txt https://raw.githubusercontent.com/yoshiko2/Movie_Data_Capture/$MDC_REQUIREMENTS_SOURCE_VERSION/requirements.txt && \
+    wget -O mdc_requirements.txt https://raw.githubusercontent.com/553531284/Movie_Data_Capture/$MDC_REQUIREMENTS_SOURCE_VERSION/requirements.txt && \
     pip install -r mdc_requirements.txt

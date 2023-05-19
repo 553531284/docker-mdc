@@ -27,7 +27,7 @@ RUN apk --update --no-cache add \
     pip install --upgrade pip
 
 ARG PYINSTALLER_SOURCE_VERISON
-ENV PYINSTALLER_SOURCE_VERISON=${PYINSTALLER_SOURCE_VERISON:-09b8a1ebd0a62c4e61de61cd33c739c997249a89}
+ENV PYINSTALLER_SOURCE_VERISON=${PYINSTALLER_SOURCE_VERISON:-b8ba192e05705b217c8e2a217d51252dfb0b87c9}
 
 # build bootloader for alpine
 RUN mkdir -p /tmp/pyinstaller && \
@@ -43,6 +43,7 @@ RUN chmod a+x /pyinstaller/*
 ARG MDC_REQUIREMENTS_SOURCE_VERSION
 ENV MDC_REQUIREMENTS_SOURCE_VERSION=${MDC_REQUIREMENTS_SOURCE_VERSION:-master}
 
+RUN pip install dlib-bin -i https://pypi.douban.com/simple/
 # install requirements
 RUN cd /tmp && \
     wget -O mdc_requirements.txt https://raw.githubusercontent.com/553531284/Movie_Data_Capture/$MDC_REQUIREMENTS_SOURCE_VERSION/requirements.txt && \

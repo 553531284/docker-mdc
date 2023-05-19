@@ -1,4 +1,4 @@
-FROM ghcr.io/vergilgao/mdc-buildimage:dev as build-stage
+FROM ghcr.io/553531284/mdc-buildimage:dev as build-stage
 
 ARG MDC_SOURCE_VERSION
 ENV MDC_SOURCE_VERSION=${MDC_SOURCE_VERSION:-master}

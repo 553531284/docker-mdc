@@ -29,5 +29,5 @@ if [ ! -f "${config_file}" ]; then
 fi
 
 echo "Starting..."
-cd /data
+
 gosu ${USER} /app/Movie_Data_Capture "$@"

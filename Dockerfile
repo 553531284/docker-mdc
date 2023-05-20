@@ -10,18 +10,23 @@ RUN mkdir -p /tmp/mdc && cd /tmp/mdc && \
     sed -i "s/if configProxy:/if configProxy.enable:/g" core.py && \
     # build mdc
     pyinstaller \
-        --onefile Movie_Data_Capture.py \
-        --hidden-import "ImageProcessing.cnn" \
-        --add-data "Img:Img" \
-        --add-data "scrapinglib:scrapinglib" \
-        --add-data "$(python -c 'import cloudscraper as _; print(_.__path__[0])' | tail -n 1):cloudscraper" \
-        --add-data "$(python -c 'import opencc as _; print(_.__path__[0])' | tail -n 1):opencc" \
-        --add-data "$(python -c 'import face_recognition_models as _; print(_.__path__[0])' | tail -n 1):face_recognition_models"
+      --onefile Movie_Data_Capture.py \
+      --python-option u \
+      --hidden-import "ImageProcessing.cnn" \
+      --add-data "$(python -c 'import cloudscraper as _; print(_.__path__[0])' | tail -n 1):cloudscraper" \
+      --add-data "$(python -c 'import opencc as _; print(_.__path__[0])' | tail -n 1):opencc" \
+      --add-data "$(python -c 'import face_recognition_models as _; print(_.__path__[0])' | tail -n 1):face_recognition_models" \
+      --add-data "Img:Img" \
+      --add-data "scrapinglib:scrapinglib"
 
-FROM ghcr.io/vergilgao/alpine-baseimage
+FROM ubuntu:23.10
 
-RUN apk --update --no-cache add \
-    libxcb
+RUN set -eux; \
+    apt-get update; \
+    apt-get install -y gosu; \
+    rm -rf /var/lib/apt/lists/*; \
+    # verify that the binary works
+    gosu nobody true
 
 ARG BUILD_DATE
 ARG VERSION

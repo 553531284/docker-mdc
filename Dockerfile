@@ -9,7 +9,7 @@ RUN mkdir -p /tmp/mdc && cd /tmp/mdc && \
     # fix dowload error
     sed -i "s/if configProxy:/if configProxy.enable:/g" core.py && \
     # build mdc
-    /pyinstaller/pyinstaller.sh \
+    pyinstaller \
         --onefile Movie_Data_Capture.py \
         --hidden-import "ImageProcessing.cnn" \
         --add-data "Img:Img" \

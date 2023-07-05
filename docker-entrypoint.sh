@@ -18,7 +18,7 @@ if [ ! -d /config ]; then
     echo "---no config folder found, create...---"
     mkdir -p /config
 fi
-chown -R ${UID}:${GID} /app /data /config 
+chown -R ${UID}:${GID} /data /config 
 
 echo "Checking if config file exist"
 if [ ! -f "${config_file}" ]; then
@@ -29,5 +29,5 @@ if [ ! -f "${config_file}" ]; then
 fi
 
 echo "Starting..."
-
-gosu ${USER} /app/Movie_Data_Capture "$@"
+cd /data
+gosu ${USER} /app/Movie_Data_Capture

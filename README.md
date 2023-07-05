@@ -2,7 +2,7 @@
 
 [github](https://github.com/VergilGao/docker-mdc) [![GitHub stars](https://img.shields.io/github/stars/VergilGao/docker-mdc)](https://github.com/VergilGao/docker-mdc/stargazers) | [dockerhub](https://hub.docker.com/r/vergilgao/mdc)
 
-![publish](https://github.com/VergilGao/docker-mdc/workflows/publish/badge.svg) [![GitHub license](https://img.shields.io/github/license/VergilGao/docker-mdc)](https://github.com/VergilGao/docker-mdc/blob/master/LICENSE)
+![release](https://github.com/VergilGao/docker-mdc/workflows/release/badge.svg) [![GitHub license](https://img.shields.io/github/license/VergilGao/docker-mdc)](https://github.com/VergilGao/docker-mdc/blob/master/LICENSE)
 
 **数据无价，请谨慎操作！**
 
@@ -25,6 +25,14 @@
 * **6.2.1版本有功能性BUG，已被上游作者废置，请酌情使用**
 
 ## 更新日志
+
+20230523:
+
+* 同步至上游 6.6.3
+* 基础镜像修改为 debian11
+* 移除 arm64 支持
+
+因为上游人脸识别模块需要的依赖在 arm64 架构下需要编译，本人不擅长编译 pip 模块，所以放弃了 arm64 架构的维护。
 
 20220529：
 
@@ -132,8 +140,8 @@ docker run --rm -it \
   --name mdc_test \
   -v ${PWD}/test:/data \
   -v ${PWD}/config:/config \
-  -e PUID=1000
-  -e PGID=1000
+  -e UID=1000 \
+  -e GID=1000 \
   vergilgao/mdc:latest
 ```
 

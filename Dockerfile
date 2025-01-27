@@ -19,7 +19,7 @@ RUN mkdir -p /tmp/mdc && cd /tmp/mdc && \
       --add-data "Img:Img" \
       --add-data "scrapinglib:scrapinglib"
 
-FROM ubuntu:23.10
+FROM ubuntu:latest
 
 RUN set -eux; \
     apt-get update; \
